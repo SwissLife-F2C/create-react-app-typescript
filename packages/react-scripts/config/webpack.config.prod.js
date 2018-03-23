@@ -316,7 +316,7 @@ module.exports = {
       parallel: true,
       cache: true,
       uglifyOptions: {
-        ecma: 8,
+        ecma: 5,
         compress: {
           warnings: false,
           // Disabled because of an issue with Uglify breaking seemingly valid code:
@@ -324,6 +324,7 @@ module.exports = {
           // Pending further investigation:
           // https://github.com/mishoo/UglifyJS2/issues/2011
           comparisons: false,
+          keep_fnames: true,
         },
         mangle: {
           safari10: true,
