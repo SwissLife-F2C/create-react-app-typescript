@@ -187,6 +187,7 @@ module.exports = {
               },
             ],
           },
+          // [f2c] add scss loader
           {
             test: /\.scss$/,
             include: paths.appSrc,
@@ -316,6 +317,7 @@ module.exports = {
       parallel: true,
       cache: true,
       uglifyOptions: {
+        // [f2c] downgrade ecma version (ie11 issues)
         ecma: 5,
         compress: {
           warnings: false,
@@ -327,6 +329,8 @@ module.exports = {
           keep_fnames: true,
         },
         mangle: {
+          // [f2c] inject reserved keywords (parser issues)
+          reserved: getReservedKeywords(),
           safari10: true,
         },
         output: {
@@ -401,3 +405,18 @@ module.exports = {
     child_process: 'empty',
   },
 };
+
+
+// [f2c]
+function getReservedKeywords() {
+  if (process.env.RESERVED_KEYWORDS == null) {
+    return []
+  }
+
+  const data = JSON.parse(process.env.RESERVED_KEYWORDS);
+  if (data == null) {
+    return []
+  }
+
+  return data;
+}
