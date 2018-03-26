@@ -406,17 +406,19 @@ module.exports = {
   },
 };
 
-
 // [f2c]
 function getReservedKeywords() {
   if (process.env.RESERVED_KEYWORDS == null) {
+    console.log('No ReservedKeywords found!');
     return []
   }
 
   const data = JSON.parse(process.env.RESERVED_KEYWORDS);
-  if (data == null) {
+  if (data == null || data.keywords == null) {
+    console.log('No ReservedKeywords found!');
     return []
   }
 
-  return data;
+  console.log('Use ReservedKeywords:', data.keywords);
+  return data.keywords;
 }
