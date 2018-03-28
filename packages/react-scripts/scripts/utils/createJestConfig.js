@@ -64,6 +64,8 @@ module.exports = (resolve, rootDir, isEjecting) => {
         tsConfigFile: paths.appTsTestConfig,
       },
     },
+    // [f2c]
+    testPathIgnorePatterns: getTestPathIgnorePatterns()
   };
   if (rootDir) {
     config.rootDir = rootDir;
@@ -108,3 +110,20 @@ module.exports = (resolve, rootDir, isEjecting) => {
   }
   return config;
 };
+
+// [f2c]
+function getTestPathIgnorePatterns() {
+  if (process.env.TEST_PATH_IGNORE_PATTERNS == null) {
+    console.log('No TestPathIgnorePatterns found!');
+    return []
+  }
+
+  const data = JSON.parse(process.env.TEST_PATH_IGNORE_PATTERNS);
+  if (data == null || data.folder == null) {
+    console.log('No TestPathIgnorePatterns found!');
+    return []
+  }
+
+  console.log('Use TestPathIgnorePatterns:', data.folder);
+  return data.folder;
+}
