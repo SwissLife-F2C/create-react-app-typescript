@@ -154,6 +154,11 @@ module.exports = {
           // "url" loader works just like "file" loader but it also embeds
           // assets smaller than specified size as data URLs to avoid requests.
           {
+            test: /\.(graphql|gql)$/,
+            exclude: /node_modules/,
+            loader: 'graphql-tag/loader',
+          },
+          {
             test: [/\.bmp$/, /\.gif$/, /\.jpe?g$/, /\.png$/],
             loader: require.resolve('url-loader'),
             options: {
@@ -410,13 +415,13 @@ module.exports = {
 function getReservedKeywords() {
   if (process.env.RESERVED_KEYWORDS == null) {
     console.log('No ReservedKeywords found!');
-    return []
+    return [];
   }
 
   const data = JSON.parse(process.env.RESERVED_KEYWORDS);
   if (data == null || data.keywords == null) {
     console.log('No ReservedKeywords found!');
-    return []
+    return [];
   }
 
   console.log('Use ReservedKeywords:', data.keywords);
