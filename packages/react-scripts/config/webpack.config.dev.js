@@ -191,7 +191,7 @@ module.exports = {
           // [f2c] add scss loader
           {
             test: /\.scss$/,
-            include: paths.appSrc,
+            include: [paths.appSrc, paths.appNodeModules],
             use: [
               {
                 loader: require.resolve('style-loader'),
